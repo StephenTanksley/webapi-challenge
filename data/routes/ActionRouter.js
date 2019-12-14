@@ -1,10 +1,28 @@
 const express = require('express')
-const action = require('../helpers/actionModel')
+const data = require('../helpers/actionModel')
 
-const router = express.Router();
+const { 
+    validateProjectId,
+    validateAction,
+    validateActionId
+} = require('../../middleware/validation')
 
-router.get('/', (req, res) => {
-    res.json("Successfully navigated to the action endpoint.")
+const router = express.Router({ mergeParams: true });
+
+router.get('/:actionId', validateProjectId(), validateActionId(), (req, res, next) => {
+    try {
+        res
+            .status(200)
+            .json(req.action)
+    }
+    catch (err) {
+        next(err)
+    }
+})
+
+router.post('/', validateAction(), validateProjectId(), async (req, res, next) => {
+
 })
 
 module.exports = router;
+
