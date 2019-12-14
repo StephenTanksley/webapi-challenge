@@ -40,13 +40,23 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+    * We learned about Middleware and the Express Router this week.
+
 - [ ] Describe Middleware?
+
+    * Middleware is essentially any code which intercepts an incoming request, modifies it in some way, and then returns it to us. In the case of our projects over the past week, we implemented logging middleware which gave us information on the user's request, IP address, time of the request and the method used. We also implemented extra functions for validate portions of the requests and make our error messages more precise and helpful.
 
 - [ ] Describe a Resource?
 
+    * A Resource, in the context of NodeJS, refers to a database or any bank of data we'd like to interact with as users.
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+    * The API can return a status code in addition to the requested resource. The status code lets the client know which type of request it was and to serve up the appropriate response.
+
 - [ ] How can we partition our application into sub-applications?
+
+    * Routers are the tool used to serve up the appropriate content by type. For example, in this project, we'll be creating different routes for Projects and Actions. Each of those will be accessed by using a different endpoint to ensure that our resources are connected one-to-one with requests.
 
 ## Minimum Viable Product
 
