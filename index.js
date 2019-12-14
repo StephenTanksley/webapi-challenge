@@ -14,14 +14,22 @@ Go code!
 */
 
 const express = require('express')
+const helmet = require('helmet')
+const logger = require('./middleware/logger')
 const app = express()
 
-// const logger = require('./middleware/logger')
+app.use(helmet())
+app.use(express.json())
+app.use(logger('short'))
 
-app.use('/', (req, res) => {
-    res.json("Server running!")
-})
+const projectRouter = require('./data/routes/ProjectRouter')
+const actionRouter = require('./data/routes/ActionRouter')
 
+app.use('/api/projects', projectRouter)
+app.use('/api/projects/:id/actions', actionRouter)
+
+
+//global error handling.
 app.use((req, res) => {
     res
         .status(404)
@@ -35,11 +43,10 @@ app.use((err, req, res, next) => {
         .json({ message: "An internal error occurred." })
 })
 
-// const port = process.env.PORT || 8080
-const port = 8080
 
-// const host = process.env.HOST || "127.0.0.1"
-const host = "127.0.0.1"
+//host/port/listener configuration
+const port = process.env.PORT || 8080
+const host = process.env.HOST || "127.0.0.1"
 
 app.listen(port, host, () => {
     console.log(`Server running on ${host}:${port}`)
