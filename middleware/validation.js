@@ -75,7 +75,7 @@ const validateProjectId = () => async (req, res, next) => {
             .status(400)
             .json({ message: "Invalid id."})
     } else {
-        req.project = projectId;
+        req.project = id;
     }
     next()
 }

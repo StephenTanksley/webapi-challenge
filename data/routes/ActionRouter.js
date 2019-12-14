@@ -9,7 +9,8 @@ const {
 
 const router = express.Router({ mergeParams: true });
 
-router.get('/:actionId', validateProjectId(), validateActionId(), (req, res, next) => {
+router.get('/:actionId', validateProjectId(), validateActionId(), async (req, res, next) => {
+    // console.log(req.action)
     try {
         res
             .status(200)
@@ -25,4 +26,3 @@ router.post('/', validateAction(), validateProjectId(), async (req, res, next) =
 })
 
 module.exports = router;
-
