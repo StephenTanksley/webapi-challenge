@@ -12,3 +12,42 @@ I need this code, just don't know where, perhaps should make some middleware, do
 
 Go code!
 */
+
+const express = require('express')
+const helmet = require('helmet')
+const logger = require('./middleware/logger')
+const app = express()
+
+app.use(helmet())
+app.use(express.json())
+app.use(logger('short'))
+
+const projectRouter = require('./data/routes/ProjectRouter')
+const actionRouter = require('./data/routes/ActionRouter')
+
+app.use('/api/projects', projectRouter)
+app.use('/api/projects/:id/actions', actionRouter)
+
+
+//global error handling.
+app.use((req, res) => {
+    res
+        .status(404)
+        .json({ message: "Route was not found. "})
+})
+
+app.use((err, req, res, next) => {
+    console.log(err)
+    res
+        .status(500)
+        .json({ message: "An internal error occurred." })
+})
+
+
+//host/port/listener configuration
+const port = process.env.PORT || 8080
+const host = process.env.HOST || "127.0.0.1"
+
+app.listen(port, host, () => {
+    console.log(`Server running on ${host}:${port}`)
+})
