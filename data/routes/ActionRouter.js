@@ -45,7 +45,7 @@ router.put('/:actionId', validateAction(), validateProjectId(), validateActionId
             completed: req.body.completed,
         }
         const updatedAction = await data.update(req.params.actionId, action)
-        .then(update => {
+        .then(updatedAction => {
             res
                 .status(200)
                 .json(updatedAction)

@@ -1,6 +1,6 @@
+
 const actionData = require('../data/helpers/actionModel')
 const projectData = require('../data/helpers/projectModel')
-
 
 const validateAction = () => (req, res, next) => {
     if(!req.body) {
@@ -67,9 +67,9 @@ const validateProject = () => (req, res, next) => {
     next()
 }
 
+
 const validateProjectId = () => async (req, res, next) => {
     const id = await projectData.get(req.params.id)
-
     if (!id) {
         return res
             .status(400)
